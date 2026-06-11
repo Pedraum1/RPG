@@ -1,4 +1,6 @@
 from random import randint
+from src.Character.Lifebar import Lifebar
+from src.utils.inputs import wait_user
 
 class CharacterStatusDTO():
         
@@ -14,7 +16,7 @@ class CharacterStatusDTO():
 
 class Character():
 
-    def __init__(self, role: str):
+    def __init__(self, role: str, name:str = ""):
 
         self.health_points: int
         self.max_health_points: int
@@ -25,10 +27,15 @@ class Character():
         self.magic_defense: int
         self.critical_rate: int
 
+        self.name:str = name
+        self.role: str = role
+
         Status: CharacterStatusDTO = self.generateStatus(role)
         self.apply_status(Status)
 
-        self.role: str = role
+        self.level: int = 1
+        self.lifebar: Lifebar = Lifebar(self)
+
 
     def apply_status(self, Status: CharacterStatusDTO) -> None:
         self.health_points     = Status.health_points
@@ -41,12 +48,20 @@ class Character():
 
     def attack(self, target: "Character"):
         damage: int = self.calculate_damage(self.attack_damage, target.physical_defense)
+        print(f"{self.name} IRÁ ATACAR {target.name}")
+        wait_user()
+
         if self.attackWillCrit():
             damage *= 2
+            print("ATAQUE CRÍTICO!")
+            wait_user()
         target.receive_damage(damage)
+        wait_user()
 
     def receive_damage(self, damage: int):
+        print(f"{self.name} recebeu {damage} de dano")
         self.health_points = max(0, self.health_points - damage)
+        self.lifebar.update(self)
     
     def calculate_damage(self, damage: int, defense: int) -> int:
         return round(damage * 100 / (100+defense))
@@ -90,4 +105,4 @@ class Character():
         return status
     
     def __str__(self):
-        return f"{self.role} | {self.health_points}/{self.max_health_points}"
+        return f"{self.name} - {self.level} | {self.health_points}/{self.max_health_points}"

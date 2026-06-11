@@ -10,11 +10,13 @@ class Combat():
         else:
             print("UM INIMIGO APARECEU!")
 
+        wait_user()
+
         while player.is_alive() and self.any_enemies_alive(enemies):
+
             for enemy in enemies:
 
-                print_combatants(player, enemy)
-                wait_user()
+                self.print_combatants(player, enemy)
 
                 turn: bool = True
                 while player.is_alive() and enemy.is_alive():
@@ -22,18 +24,30 @@ class Combat():
                     if turn:
                         player.attack(enemy)
                     else:
-                        enemy.attack(player)    
+                        enemy.attack(player)
+                    
+                    turn = self.change_turn(turn)
 
-                    print_combatants(player, enemy)
-                    wait_user()
+                    self.print_combatants(player, enemy)
 
-        def any_enemies_alive(enemies: list[Character]):
-            for enemy in enemies:
-                if enemy.is_alive():
-                    return True
-            return False
-        
-        def print_combatants(player: Character, enemy: Character):
-            print(player)
-            print(enemy)
+                    if player.is_dead():
+                        print("VOCÊ PERDEU O COMBATE!")
+                        wait_user()
+                        return
+                        
+            print("VOCÊ VENCEU O COMBATE! PARABÉNS!")
             wait_user()
+
+    def any_enemies_alive(self, enemies: list[Character]):
+        for enemy in enemies:
+            if enemy.is_alive():
+                return True
+        return False
+        
+    def print_combatants(self, player: Character, enemy: Character):
+        print(player.lifebar)
+        print(enemy.lifebar)
+        wait_user()
+
+    def change_turn(self, turn: bool) -> bool:
+        return not turn
