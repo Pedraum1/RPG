@@ -36,6 +36,8 @@ class Character():
         self.level: int = 1
         self.lifebar: Lifebar = Lifebar(self)
 
+        self.playable: bool = False
+
 
     def apply_status(self, Status: CharacterStatusDTO) -> None:
         self.health_points     = Status.health_points
@@ -103,6 +105,9 @@ class Character():
                 status.critical_rate = 0
         
         return status
+    
+    def set_playable(self):
+        self.playable = True
     
     def __str__(self):
         return f"{self.name} - {self.level} | {self.health_points}/{self.max_health_points}"
