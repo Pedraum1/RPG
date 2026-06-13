@@ -1,4 +1,5 @@
 from src.Character.Character import Character
+from src.Character.Role.Warrior import Warrior
 
 from src.Engine.Phase import Phase
 
@@ -16,8 +17,9 @@ class Engine():
         self.phases.append(Phase2())
         self.phases.append(Phase3())
 
-        player_class = "Warrior"
-        player: Character = Character(player_class)
+        character_name = input("Escolha o nome do seu personagem:\n")
+        player_class = Warrior()
+        player: Character = Character(player_class, character_name)
 
         self.run(player)
         

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from random import randint
 from src.Character.Lifebar import Lifebar
 from src.utils.inputs import wait_user
@@ -16,7 +18,7 @@ class CharacterStatusDTO():
 
 class Character():
 
-    def __init__(self, role: str, name:str = ""):
+    def __init__(self, role: "Role", name:str = ""):
 
         self.health_points: int
         self.max_health_points: int
@@ -28,9 +30,9 @@ class Character():
         self.critical_rate: int
 
         self.name:str = name
-        self.role: str = role
+        self.role: "Role" = role
 
-        Status: CharacterStatusDTO = self.generateStatus(role)
+        Status: CharacterStatusDTO = self.role.get_base_status()
         self.apply_status(Status)
 
         self.level: int = 1
@@ -76,35 +78,6 @@ class Character():
     
     def is_dead(self):
         return not self.is_alive()
-    
-    def generateStatus(self, role: str) -> CharacterStatusDTO:
-        status = CharacterStatusDTO()
-        match role:
-            case "Warrior":
-                status.max_health_points = 1000
-                status.health_points = 1000
-
-                status.attack_damage = 100
-                status.physical_defense = 70
-
-                status.magic_damage = 0
-                status.magic_defense = 40
-
-                status.critical_rate = 1
-
-            case "Wizard":
-                status.max_health_points = 550
-                status.health_points = 550
-
-                status.attack_damage = 40
-                status.physical_defense = 40
-
-                status.magic_damage = 140
-                status.magic_defense = 30
-
-                status.critical_rate = 0
-        
-        return status
     
     def set_playable(self):
         self.playable = True
