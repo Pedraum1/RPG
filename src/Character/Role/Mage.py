@@ -21,3 +21,13 @@ class Mage(Role):
         status.critical_rate = 0
 
         return status
+    
+    def get_level_progression(self) -> CharacterStatusDTO:
+        status = CharacterStatusDTO()
+
+        status.max_health_points = 98
+        status.attack_damage = 5
+        status.physical_defense = 4
+        status.magic_defense = 2
+
+        return status

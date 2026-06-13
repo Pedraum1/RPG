@@ -11,5 +11,8 @@ class Phase1(Phase):
         print(player)
         print('')
 
+        player.level_up(2)
+        print(f"{player.name} subiu 2 níveis")
+
         wait_user()
         

@@ -6,7 +6,7 @@ class Warrior(Role):
     def __init__(self):
         super().__init__("Warrior")
     
-    def get_base_status(self):
+    def get_base_status(self) -> CharacterStatusDTO:
         status = CharacterStatusDTO()
 
         status.max_health_points = 690
@@ -21,5 +21,15 @@ class Warrior(Role):
         status.critical_rate = 1
 
         return status
+    
+    def get_level_progression(self) -> CharacterStatusDTO:
+        status = CharacterStatusDTO()
 
-        # TODO: Criar classes para gerir habilidades especiais das classes
+        status.max_health_points = 98
+        status.attack_damage = 5
+        status.physical_defense = 4
+        status.magic_defense = 2
+
+        return status
+
+    # TODO: Criar classes para gerir habilidades especiais das classes

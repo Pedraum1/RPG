@@ -7,14 +7,14 @@ from src.utils.inputs import wait_user
 class CharacterStatusDTO():
         
     def __init__(self):
-        self.health_points: int
-        self.max_health_points: int
+        self.health_points: int     = 0
+        self.max_health_points: int = 0
 
-        self.attack_damage: int
-        self.magic_damage: int
-        self.physical_defense: int
-        self.magic_defense: int
-        self.critical_rate: int
+        self.attack_damage: int     = 0
+        self.magic_damage: int      = 0
+        self.physical_defense: int  = 0
+        self.magic_defense: int     = 0
+        self.critical_rate: int     = 0
 
 class Character():
 
@@ -81,6 +81,21 @@ class Character():
     
     def set_playable(self):
         self.playable = True
+
+    def level_up(self, level_counter: int = 1):
+        status: CharacterStatusDTO = self.role.get_level_progression()
+
+        health_increment = self.health_points / self.max_health_points
+
+        self.max_health_points += status.max_health_points * level_counter
+        self.attack_damage += status.attack_damage * level_counter
+        self.magic_damage += status.magic_damage * level_counter
+        self.physical_defense += status.physical_defense * level_counter
+        self.magic_defense += status.magic_defense * level_counter
+
+        self.health_points = health_increment * self.max_health_points
+
+        self.level += level_counter
     
     def __str__(self):
         return f"{self.name} - {self.level} | {self.health_points}/{self.max_health_points}"

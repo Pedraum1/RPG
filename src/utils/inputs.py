@@ -18,7 +18,8 @@ def valid_option(option: str, op_range: tuple) -> bool:
     if not option.isdigit():
         return False
     
-    if int(option) not in range(op_range[0], op_range[1]):
+    option = int(option)
+    if option not in range(op_range[0], op_range[1]+1):
         return False
     
     return True

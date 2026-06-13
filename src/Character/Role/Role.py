@@ -10,3 +10,7 @@ class Role(ABC):
     @abstractmethod
     def get_base_status(self) -> "CharacterStatusDTO":
         pass
+
+    @abstractmethod
+    def get_level_progression(self) -> "CharacterStatusDTO":
+        pass

@@ -21,3 +21,15 @@ class Assassin(Role):
         status.critical_rate = 25
 
         return status
+    
+    def get_level_progression(self) -> CharacterStatusDTO:
+        status = CharacterStatusDTO()
+
+        status.max_health_points = 104
+        status.attack_damage = 1
+        status.physical_defense = 5
+
+        status.magic_damage = 4
+        status.magic_defense = 1
+
+        return status
