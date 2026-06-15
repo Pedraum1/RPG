@@ -1,3 +1,5 @@
+from src.utils.terminal import *
+
 class Lifebar():
 
     def __init__(self, character: "Character"):
@@ -18,9 +20,12 @@ class Lifebar():
         bar = '['
         for i in range(self.max_size):
             if i <= health_pixels:
-                bar += '#'
+                bar += print_square()
             else:
-                bar += ' '
+                bar += print_empty_square()
         bar += ']'
         
-        return f"{self.character.name} - lvl.{self.character.level}\n{bar}\n                      {self.character.health_points}/{self.character.max_health_points}"
+        if self.character.playable:
+            return f"{self.character.name} - lvl.{self.character.level}\n{set_color_green()}{bar}\n                      {self.character.health_points}/{self.character.max_health_points}{set_color_white()}"
+        
+        return f"{self.character.name} - lvl.{self.character.level}\n{set_color_green()}{bar}\n                      {self.character.health_points}/{self.character.max_health_points}{set_color_white()}"

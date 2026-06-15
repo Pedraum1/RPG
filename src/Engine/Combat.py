@@ -49,6 +49,8 @@ class Combat():
                         print("VOCÊ PERDEU O COMBATE!")
                         wait_user()
                         return
+                    
+                player.cure(int(player.max_health_points * 0.4))
                         
             print("VOCÊ VENCEU O COMBATE! PARABÉNS!")
             wait_user()

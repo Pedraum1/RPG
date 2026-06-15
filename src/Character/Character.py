@@ -4,6 +4,8 @@ from random import randint
 from src.Character.Lifebar import Lifebar
 from src.utils.time import delay
 
+from src.utils.terminal import *
+
 class CharacterStatusDTO():
         
     def __init__(self):
@@ -52,18 +54,18 @@ class Character():
 
     def attack(self, target: "Character"):
         damage: int = self.calculate_damage(self.attack_damage, target.physical_defense)
-        print(f"{self.name} IRÁ ATACAR {target.name}")
+        print(f"{self.name} IRÁ ATACAR {set_color_red()}{target.name}{set_color_white()}")
         delay(500)
 
         if self.attackWillCrit():
             damage *= 2
-            print("ATAQUE CRÍTICO!")
+            print(f"{set_color_yellow()}ATAQUE CRÍTICO!{set_color_white()}")
             delay(500)
         target.receive_damage(damage)
         delay(500)
 
     def receive_damage(self, damage: int):
-        print(f"{self.name} recebeu {damage} de dano")
+        print(f"{self.name} recebeu {set_color_red()}{damage}{set_color_white()} de dano")
         self.health_points = max(0, self.health_points - damage)
         self.lifebar.update(self)
     
@@ -72,6 +74,15 @@ class Character():
 
     def attackWillCrit(self):
         return self.critical_rate > randint(0, 99)
+    
+    def cure(self, heal: int):
+        if heal + self.health_points > self.max_health_points:
+            self.health_points = self.max_health_points
+            return
+        
+        self.health_points += heal
+        print(f"{self.name} curou {set_color_green()}{heal}{set_color_white()} pontos d evida")
+        delay()
     
     def is_alive(self):
         return self.health_points > 0

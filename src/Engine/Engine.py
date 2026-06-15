@@ -22,6 +22,7 @@ class Engine():
         character_name = input("Escolha o nome do seu personagem:\n")
         player_class = Warrior()
         player: Character = Character(player_class, character_name)
+        player.playable = True
 
         delay()
 
