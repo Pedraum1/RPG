@@ -3,6 +3,9 @@ def wait_user():
     input()
 
 def input_option(options: list[str], message: str = "Escolha uma opção:"):
+    if(len(options) == 1):
+        return 0
+    
     while True:
         print(f'\n{message}')
         for index, option in enumerate(options):
