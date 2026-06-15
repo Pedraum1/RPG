@@ -2,6 +2,8 @@ from src.Character.Character import Character
 from src.utils.inputs import wait_user, input_option
 
 from random import randint
+from src.utils.time import delay
+
 
 class Combat():
 
@@ -14,7 +16,7 @@ class Combat():
         else:
             print("UM INIMIGO APARECEU!")
 
-        wait_user()
+        delay(500)
 
         while player.is_alive() and self.any_enemies_alive(enemies):
 
@@ -27,12 +29,15 @@ class Combat():
 
                     if turn:
                         option: int = input_option(combat_options, "ESCOLHA UMA AÇÃO:")
+                        delay(500)
                         self.process_action(player, option, enemy)
 
                     else:
                         option: int = randint(0, len(combat_options) - 1)
                         self.process_action(enemy, option, player)
-                    
+                    delay(500)
+
+
                     turn = self.change_turn(turn)
 
                     self.print_combatants(player, enemy)
@@ -54,7 +59,7 @@ class Combat():
     def print_combatants(self, player: Character, enemy: Character):
         print(player.lifebar)
         print(enemy.lifebar)
-        wait_user()
+        
 
     def change_turn(self, turn: bool) -> bool:
         return not turn

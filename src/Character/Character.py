@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from random import randint
 from src.Character.Lifebar import Lifebar
-from src.utils.inputs import wait_user
+from src.utils.time import delay
 
 class CharacterStatusDTO():
         
@@ -53,14 +53,14 @@ class Character():
     def attack(self, target: "Character"):
         damage: int = self.calculate_damage(self.attack_damage, target.physical_defense)
         print(f"{self.name} IRÁ ATACAR {target.name}")
-        wait_user()
+        delay(500)
 
         if self.attackWillCrit():
             damage *= 2
             print("ATAQUE CRÍTICO!")
-            wait_user()
+            delay(500)
         target.receive_damage(damage)
-        wait_user()
+        delay(500)
 
     def receive_damage(self, damage: int):
         print(f"{self.name} recebeu {damage} de dano")
@@ -93,7 +93,7 @@ class Character():
         self.physical_defense += status.physical_defense * level_counter
         self.magic_defense += status.magic_defense * level_counter
 
-        self.health_points = health_increment * self.max_health_points
+        self.health_points = int(health_increment * self.max_health_points)
 
         self.level += level_counter
     
