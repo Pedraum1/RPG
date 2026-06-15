@@ -7,6 +7,8 @@ from src.Phases.Phase1 import Phase1
 from src.Phases.Phase2 import Phase2
 from src.Phases.Phase3 import Phase3
 
+from src.utils.time import delay
+
 
 class Engine():
 
@@ -20,6 +22,8 @@ class Engine():
         character_name = input("Escolha o nome do seu personagem:\n")
         player_class = Warrior()
         player: Character = Character(player_class, character_name)
+
+        delay()
 
         self.run(player)
         
